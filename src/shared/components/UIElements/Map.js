@@ -1,6 +1,7 @@
 import React from 'react'
 
-const Map = () => {
+// Implementing after, Watch Video 17, Frontend
+const Map = props => {
     return (
         <div className={`map ${props.className}`} style={props.style}>Map</div>
     )
