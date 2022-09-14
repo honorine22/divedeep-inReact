@@ -35,6 +35,7 @@ const DUMMY_PLACES = [
 
 const UpdatePlace = () => {
     const placeId = useParams().placeId;
+    const identifiedPlace = DUMMY_PLACES.find(p => p.id === placeId);
     const [formState, inputHandler] = useForm({
         title: {
             value: identifiedPlace.title,
@@ -51,37 +52,37 @@ const UpdatePlace = () => {
         console.log(formState.inputs);
     }
 
-    const identifiedPlace = DUMMY_PLACES.find(p => p.id === placeId);
-
     if (!identifiedPlace) {
         return <div className='center'>
             <h2>Could not find place!</h2>
         </div>
     }
-    return <form className='place-form' onSubmit={placeUpdateSubmitHandler}>
-        <Input
-            id="title"
-            type="text"
-            label="Title"
-            element="input"
-            validators={[VALIDATOR_REQUIRE()]}
-            errorText="Please enter a valid title"
-            onInput={() => { }}
-            initialValue={formState.inputs.title.value}
-            initialValid={formState.inputs.title.isValid}
-        />
-        <Input
-            id="description"
-            element="textarea"
-            label="Description"
-            validators={[VALIDATOR_MINLENGTH(5)]}
-            errorText="Please enter a valid description (at least 5 characters)."
-            onInput={inputHandler}
-            initialValue={formState.inputs.description.value}
-            initialValid={formState.inputs.description.isValid}
-        />
-        <Button type="submit" disabled={formState.isValid}>ADIT PLACE</Button>
-    </form>;
+    return (
+        <form className='place-form' onSubmit={placeUpdateSubmitHandler}>
+            <Input
+                id="title"
+                type="text"
+                label="Title"
+                element="input"
+                validators={[VALIDATOR_REQUIRE()]}
+                errorText="Please enter a valid title"
+                onInput={inputHandler}
+                initialValue={formState.inputs.title.value}
+                initialValid={formState.inputs.title.isValid}
+            />
+            <Input
+                id="description"
+                element="textarea"
+                label="Description"
+                validators={[VALIDATOR_MINLENGTH(5)]}
+                errorText="Please enter a valid description (at least 5 characters)."
+                onInput={inputHandler}
+                initialValue={formState.inputs.description.value}
+                initialValid={formState.inputs.description.isValid}
+            />
+            <Button type="submit" disabled={!formState.isValid}>ADIT PLACE</Button>
+        </form>
+    );
 }
 
 export default UpdatePlace
